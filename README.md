@@ -7,7 +7,7 @@
                                                                     By Moofeng
 ```
                                                     
- 基于Python实现的简易版Netcat  
+ 基于Python实现的windows环境下的简易版Netcat  
  开发目的是为了方便服务于恶意流量检测
 
 # 功能
@@ -16,4 +16,5 @@
 # TODO：
 - 文件传输
 - RC4加密
+- 解决cmd，powershell等子进程相关命令卡死的问题
 

